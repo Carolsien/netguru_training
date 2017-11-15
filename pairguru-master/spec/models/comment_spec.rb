@@ -1,5 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Comment, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Comment do
+  it { is_expected.to allow_value("aaaaa").for(:body) }
+  it { is_expected.not_to allow_value("a").for(:body) }
+  it { is_expected.not_to allow_value(" ").for(:body) }
 end
