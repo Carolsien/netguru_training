@@ -1,0 +1,16 @@
+- if !comment.user_id.nil?
+  %table.table.table-striped
+    %tbody
+      %tr
+        %td
+          %p
+            %strong Author:
+            = comment.user.email
+        %td
+          %p
+            %strong Comment:
+            = comment.body
+        %td
+          %p
+            - if current_user == comment.user
+              = link_to "Delete", [comment.movie, comment], method: :delete, class: 'btn btn-sm btn-default'
