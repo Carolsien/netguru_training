@@ -1,0 +1,5 @@
+%h1 Top 10 commenters (last 7 days)
+- @grouped_commenters.each_with_index do |top, i|
+  - if !top.user_id.nil?
+    = top.user.name
+  %br/

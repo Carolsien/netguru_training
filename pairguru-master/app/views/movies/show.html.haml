@@ -5,6 +5,7 @@
   %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
 
   %h2 Add a comment:
-  = render 'comments/form'
+  - if !current_user.comments.exists?(movie: @movie)
+    = render 'comments/form'
   %h2 Comments:
   = render @movie.comments
