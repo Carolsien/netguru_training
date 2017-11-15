@@ -1,38 +1,19 @@
 require "rails_helper"
 
-class TitleBracketsValidator < ActiveModel::Validator
-
-  def validate(record)
-    stack  = []
-    lookup = { '(' => ')', '[' => ']', '{' => '}'}
-    left   = lookup.keys
-    right  = lookup.values
-    record.title.each_char do |char|
-      if left.include? char
-        stack << char
-      elsif right.include? char
-        return record.errors[:base] << "error" if stack.empty? || (lookup[stack.pop] != char)
-      end
-    end
-    return stack.empty?
-  end
-
-end
-
 describe TitleBracketsValidator do
   subject { Validatable.new(title: title) }
 
   shared_examples "has valid title" do
     it "should be valid" do
       expect(subject).to be_valid
-   end
- end
+    end
+  end
 
- shared_examples "has invalid title" do
+  shared_examples "has invalid title" do
     it "should not be valid" do
       expect(subject).not_to be_valid
     end
-end
+  end
 
   context "with curly brackets" do
     let(:title) { "The Fellowship of the Ring {Peter Jackson}" }
@@ -65,7 +46,7 @@ end
   end
 
   context "with empty brackets" do
-    let(:title) { "The Fellowship of the Ring ( )" }
+    let(:title) { "The Fellowship of the Ring ()" }
     it_behaves_like "has invalid title"
   end
 

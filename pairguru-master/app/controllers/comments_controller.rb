@@ -21,6 +21,10 @@ class CommentsController < ApplicationController
     redirect_to movie_comments_path, notice: "You've already written a comment for this movie." if current_user.comments.exists?(movie: @movie)
   end
 
+  def how_many_comments
+    User.count
+  end
+
   private
   def comment_params
     params.require(:comment).permit(:user, :body)
